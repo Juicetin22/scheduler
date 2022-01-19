@@ -3,6 +3,7 @@ import React from "react";
 import "components/InterviewerListItem.scss";
 
 export default function InterviewerListItem (props) {
+  
   return (
     <li onClick={() => props.setInterviewer(props.id)} className="interviewers__item">
       <img
