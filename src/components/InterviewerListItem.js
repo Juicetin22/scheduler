@@ -18,3 +18,5 @@ export default function InterviewerListItem (props) {
     </li>
   );
 }
+
+// {props.selected && props.name} --> can be used instead of ternary operator!
