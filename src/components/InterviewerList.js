@@ -8,16 +8,18 @@ export default function InterviewerList(props) {
 
   const listOfInterviewers = props.interviewers.map(interviewer => {
     if (interviewer.id === props.interviewer) {
-      return <InterviewerListItem key={interviewer.id} name={interviewer.name} id={interviewer.id} avatar={interviewer.avatar} setInterviewer={props.setInterviewer} selected />
+      return <InterviewerListItem key={interviewer.id} name={interviewer.name} avatar={interviewer.avatar} setInterviewer={() => props.setInterviewer(interviewer.id)} selected />
     } else {
-      return <InterviewerListItem key={interviewer.id} name={interviewer.name} id={interviewer.id} avatar={interviewer.avatar} setInterviewer={props.setInterviewer} />
+      return <InterviewerListItem key={interviewer.id} name={interviewer.name} avatar={interviewer.avatar} setInterviewer={() => props.setInterviewer(interviewer.id)} />
     }
   });
-  
+
   return (
     <section className="interviewers">
       <h4 className="interviewers__header text--light">Interviewer</h4>
-      <ul className="interviewers__list">{listOfInterviewers}</ul>
+      <ul className="interviewers__list">
+        {listOfInterviewers}
+      </ul>
     </section>
 
   );
