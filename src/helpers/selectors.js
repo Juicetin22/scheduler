@@ -16,4 +16,21 @@ export function getAppointmentsForDay(state, day) {
   });
 
   return listOfAppointments;
-}
+};
+
+export function getInterview(state, interview) {
+  const selectedInterview = {};
+  
+  if (!interview) {
+    return null;
+  }
+
+  Object.keys(state.interviewers).forEach(key => {
+    if (state.interviewers[key].id === interview.interviewer) {
+      selectedInterview.student = interview.student;
+      selectedInterview.interviewer = state.interviewers[key];
+    }
+  });
+
+  return selectedInterview;
+};
