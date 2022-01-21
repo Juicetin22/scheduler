@@ -12,6 +12,7 @@ export function getAppointmentsForDay(state, day) {
         return state.appointments[appointment];
       }
     }
+    return null;
   });
 
   return listOfAppointments;
