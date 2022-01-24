@@ -7,6 +7,7 @@ import Show from "./Show";
 import Empty from "./Empty";
 import Form from "./Form";
 import Status from "./Status";
+import Confirm from "./Confirm";
 
 import useVisualMode from "hooks/useVisualMode";
 
@@ -14,6 +15,7 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
+const CONFIRM = "CONFIRM"
 
 export default function Appointment(props) {
   console.log(props);
@@ -53,6 +55,7 @@ export default function Appointment(props) {
       )}
       {mode === CREATE && <Form interviewers={props.interviewers} onCancel={() => back()} onSave={save} />}
       {mode === SAVING && <Status message={SAVING} />}
+      {mode === CONFIRM && <Confirm />}
     </article>
   );
 } 
