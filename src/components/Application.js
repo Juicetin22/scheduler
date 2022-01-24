@@ -113,12 +113,32 @@ export default function Application(props) {
       .catch((err) => console.log(`Error: ${err.message}`));
   }   
   
+  function cancelInterview(id) {
+    const cancelledAppointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const updatedAppointments = {
+      ...state.appointments,
+      [id]: cancelledAppointment
+    };
+    
+    return axios.delete(`/api/appointments/${id}`)
+      .then((response) => {
+        setState({
+          ...state,
+          updatedAppointments
+        })
+      })
+      .catch((err) => console.log(`Error: ${err.message}`));
+  }
   
   const appointmentList = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
 
     return (
-      <Appointment key={appointment.id} {...appointment} interview={interview} interviewers={interviewersForDay} bookInterview={bookInterview} />
+      <Appointment key={appointment.id} {...appointment} interview={interview} interviewers={interviewersForDay} bookInterview={bookInterview} cancelInterview={cancelInterview} />
     );
   });
 
