@@ -32,12 +32,26 @@ export default function useApplicationData() {
       [id]: appointment
     };
     
+    const dayBooked = state.days.filter(day => day.name === state.day)
+    const dayIndex = state.days.findIndex(day => day.name === state.day)
+    console.log(dayBooked);
+    console.log(dayIndex);
+    const updateSpot = {
+      ...dayBooked[0],
+      spots: (state.appointments[id].interview ? dayBooked[0].spots : dayBooked[0].spots - 1)
+    }
+
+    console.log(updateSpot);
+
+    const days = [
+      ...state.days.slice(0, dayIndex),
+      updateSpot,
+      ...state.days.slice(dayIndex + 1)
+    ]
+
     return axios.put(`/api/appointments/${id}`, { interview })
-      .then(() => {
-        setState({
-          ...state,
-          appointments
-        });
+      .then(() => {        
+        setState(prev => ({...prev, appointments, days}));
       });
   }   
   
@@ -47,17 +61,31 @@ export default function useApplicationData() {
       interview: null
     };
 
-    const updatedAppointments = {
+    const appointments = {
       ...state.appointments,
       [id]: cancelledAppointment
     };
     
+    const dayBooked = state.days.filter(day => day.name === state.day)
+    const dayIndex = state.days.findIndex(day => day.name === state.day)
+    console.log(dayBooked);
+    console.log(dayIndex);
+    const updateSpot = {
+      ...dayBooked[0],
+      spots: (dayBooked[0].spots + 1)
+    }
+
+    console.log(updateSpot);
+
+    const days = [
+      ...state.days.slice(0, dayIndex),
+      updateSpot,
+      ...state.days.slice(dayIndex + 1)
+    ]
+
     return axios.delete(`/api/appointments/${id}`)
-      .then(() => {
-        setState({
-          ...state,
-          updatedAppointments
-        })
+      .then(() => {        
+        setState(prev => ({...prev, appointments, days}));
       });
   }
 
