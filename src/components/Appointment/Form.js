@@ -5,7 +5,7 @@ import Button from "components/Button";
 
 export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [interviewer, setInterviewer] = useState(props.interviewer ? props.interviewer.id : null);
 
   const reset = () => {
     setStudent("");
@@ -22,6 +22,8 @@ export default function Form(props) {
   //   setInterviewer(interviewer);
   //   props.onSave(student, interviewer)
   // }
+  console.log(props);
+  console.log(interviewer);
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -31,7 +33,7 @@ export default function Form(props) {
             className="appointment__create-input text--semi-bold"
             name="name"
             type="text"
-            placeholder="Enter Student Name"
+            placeholder={props.student ? props.student : "Enter student name here"}
             value={student}
             onChange={(event) => setStudent(event.target.value)}
           />
