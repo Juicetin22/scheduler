@@ -3,8 +3,10 @@ import classNames from "classnames";
 import "components/DayListItem.scss";
 
 export default function DayListItem(props) {
+  // add classes to the day depending on whether it is selected or is full
   const dayClass = classNames("day-list__item", { "day-list__item--selected": props.selected, "day-list__item--full": props.spots === 0});
 
+  // function to return different display text for different number of spots left
   const formatSpots = (spots) => {
     if (spots === 0) {
       return "No spots remaining";
