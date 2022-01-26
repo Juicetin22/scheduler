@@ -4,7 +4,7 @@ import classNames from "classnames";
 import "components/InterviewerListItem.scss";
 
 export default function InterviewerListItem (props) {
-  
+  // add additional class depending on whether the interviewer is selected - displays name
   const interviewerClass = classNames("interviewers__item", { "interviewers__item--selected": props.selected });
 
   return (
@@ -14,9 +14,7 @@ export default function InterviewerListItem (props) {
         src={props.avatar}
         alt={props.name}
       />
-      {props.selected ? props.name : ""}
+      {props.selected && props.name}
     </li>
   );
 }
-
-// {props.selected && props.name} --> can be used instead of ternary operator!
