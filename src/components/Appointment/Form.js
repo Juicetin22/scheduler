@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
@@ -25,16 +24,9 @@ export default function Form(props) {
       return;
     }
 
+    setError("");
     props.onSave(student, interviewer)
   };
-
-  // const save = () => {
-  //   setStudent(student);
-  //   setInterviewer(interviewer);
-  //   props.onSave(student, interviewer)
-  // }
-  console.log(props);
-  console.log(interviewer);
 
   return (
     <main className="appointment__card appointment__card--create">
