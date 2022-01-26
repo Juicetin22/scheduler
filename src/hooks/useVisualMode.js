@@ -4,23 +4,26 @@ export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
   
+  // when function is called change the mode to whichever mode was passed in, update the history only if the replace parameter is false
   const transition = (change, replace = false) => {
     setMode(change);
-    //history.push(change) --> works too i think
+
     if (!replace) {
       setHistory(history => [...history, change]);
     }
   }
   
+  // remove most recent mode from history and update mode to previous state
   const back = () => {
     if (history.length > 1) {
-      //history.pop() --> works too i think
       const previous = history.slice(0, -1);
+      
       setHistory(previous);
       setMode(previous[previous.length - 1]);
     }
   }
 
+  // to use in Appointment.index
   return {
     mode,
     transition,
