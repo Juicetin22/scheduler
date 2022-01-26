@@ -23,18 +23,23 @@ const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
+  // allow use of the functions and state from useVisualMode hook; initial mode dependent on presence of prop.interview
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
     );
 
+  // function is called when saving form data
   function save(name, interviewer) {
+    // creates new interview object from form submission
     const interview = {
       student: name,
       interviewer
     };
 
+    // want users to visually see that request is being processed
     transition(SAVING);
 
+    // call function to book the interview using the appointment id for that specific block and the new interview object; this returns a promise upon which we transition to showing the appointment
     props.bookInterview(props.id, interview)
       .then(() => transition(SHOW))
       .catch((error) => {
@@ -43,13 +48,17 @@ export default function Appointment(props) {
       })
   }
 
+  // gets called to transition to a confirm request mode upon clicking delete icon
   function onDelete() {
     transition(CONFIRM);
   }
   
+  // gets called when confirming the delete
   function confirmDelete() {
+    // want to show users a processing delete screen
     transition(DELETING, true);
 
+    // call the cancel interview function with the appointment id to remove appointment from database; returns a promise in which the user then sees an empty appointment slot
     props.cancelInterview(props.id)
       .then(() => transition(EMPTY))
       .catch((error) => {
